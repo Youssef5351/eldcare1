@@ -46,7 +46,7 @@ const Signup = () => {
       
       // Step 3: Send user details to backend
       console.log("Step 3: Sending to backend...");
-      const response = await axios.post("http://localhost:5000/auth/register", {
+      const response = await axios.post("https://young-innovator-backend.vercel.app/auth/register", {
         ...values,
         idToken: idToken // Include the token
       });
