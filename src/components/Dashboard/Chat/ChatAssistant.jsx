@@ -25,7 +25,7 @@ const sendMessage = async () => {
     console.log("Request payload:", { message: messageToSend, type: 'schedule' }); // DEBUG
     
     const response = await axios.post(
-      'http://localhost:5000/chat',
+      'https://young-innovator-backend.vercel.app/chat',
       {
         message: messageToSend,
         type: 'schedule'
