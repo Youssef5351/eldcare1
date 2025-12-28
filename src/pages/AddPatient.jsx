@@ -10,7 +10,7 @@ const AddPatient = () => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/addPatient', {
+      const response = await axios.post('https://young-innovator-backend.vercel.app/addPatient', {
         patientEmail : patient
       })
       console.log(response)
