@@ -17,7 +17,7 @@ const Map = () => {
   useEffect(() => {
     const fetchLocation = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/location/${id}`);
+        const res = await axios.get(`https://young-innovator-backend.vercel.app/location/${id}`);
         console.log(res);
         const s = res.data.location
         const [latitude, longitude] = s.split(', ').map(parseFloat);
