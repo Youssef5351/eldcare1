@@ -13,7 +13,7 @@ const PatientList = () => {
         const userId = localStorage.getItem("userId");
         
         const response = await axios.get(
-          `http://localhost:5000/getPatients/${userId}`,
+          `https://young-innovator-backend.vercel.app/getPatients/${userId}`,
           {
             headers: {
               Authorization: idToken
