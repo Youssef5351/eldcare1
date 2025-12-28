@@ -39,7 +39,7 @@ const Calendar = () => {
 
   useEffect(() => {
     async function fetchPatientSchedule() {
-      const patientSchedule = await axios.get("http://localhost:5000/schedule/" + patientId);
+      const patientSchedule = await axios.get("https://young-innovator-backend.vercel.app/schedule/" + patientId);
       console.log(patientSchedule);
       let appointmentsData = null;
       if(patientSchedule.data.appointments) appointmentsData = patientSchedule.data.appointments;
@@ -61,7 +61,7 @@ const Calendar = () => {
   const onAppointmentAdding = useCallback(async (e) => {
     console.log(e);
     const byUserType = localStorage.getItem('userType');
-    const response = await axios.post('http://localhost:5000/schedule', {
+    const response = await axios.post('https://young-innovator-backend.vercel.app/schedule', {
       title: e.appointmentData.text,
       startDate: e.appointmentData.startDate,
       endDate: e.appointmentData.endDate,
