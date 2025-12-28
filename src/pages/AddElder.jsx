@@ -13,7 +13,7 @@ const handleSubmit = async (e) => {
     console.log("Attempting to add patient with email:", patient);
     
     const response = await axios.post(
-      'http://localhost:5000/addPatient',
+      'https://young-innovator-backend.vercel.app/addPatient',
       { patientEmail: patient },
       {
         headers: {
