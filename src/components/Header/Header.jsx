@@ -1,0 +1,165 @@
+import { useEffect, useRef, useState } from 'react'
+import logo from '../../assets/images/logo.png'
+import userImg from '../../assets/images/avatar-icon.png'
+import { NavLink, Link } from 'react-router-dom'
+import { BiMenu } from 'react-icons/bi';
+
+
+const navLinks = [
+  {
+    path: "/",
+    display: "الرئيسية",
+  },
+  {
+    path: "/hospital",
+    display: "ابحث عن مستشفى",
+  },
+  {
+    path: "/services",
+    display: "الخدمات",
+  },
+  {
+    path: "/contact",
+    display: "تواصل معنا",
+  }
+];
+
+const DoctorNavLinks = [
+
+];
+
+const relativeLinks = [
+  {
+    path: "/",
+    display: "الرئيسية",
+  },
+  {
+    path: "/relativedash",
+    display: "لوحة التحكم",
+  },
+  {
+    path: "/hospital",
+    display: "ابحث عن مستشفى",
+  },
+  {
+    path: "/services",
+    display: "الخدمات",
+  },
+  {
+    path: "/contact",
+    display: "تواصل معنا",
+  }
+];
+
+
+const Header = () => {
+
+  const headerRef = useRef(null)
+  const menuRef = useRef(null)
+
+  const handleStickyHeader = () => {
+    window.addEventListener('scroll', () => {
+      if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+        headerRef.current.classList.add('sticky__header')
+      } else {
+        headerRef.current.classList.remove('sticky__header')
+      }
+    })
+  }
+
+  useEffect(() => {
+    handleStickyHeader()
+    return () => window.removeEventListener('scroll', handleStickyHeader)
+  })
+
+  const toggleMenu = () => menuRef.current.classList.toggle('show__menu')
+
+  function loginBtn() {
+
+    const userId = localStorage.getItem('userId');
+    const [user, setSetUser] = useState(userId);
+    useEffect(() => {
+      const userId = localStorage.getItem('userId');
+      setSetUser(userId);
+    }, [user])
+    const handleLogout = () => {
+      setSetUser(null);
+      localStorage.clear();
+      location.reload();
+    }
+    const loggs = {
+      login: <Link to='/login'>
+        <button className="bg-primaryColor py-2 px-6 text-white font-[600] h-[44px] flex items-center justify-center rounded-[50px]">تسجيل الدخول</button>
+      </Link>,
+      logout:
+        <button className="bg-primaryColor py-2 px-6 text-white font-[600] h-[44px] flex items-center justify-center rounded-[50px]" onClick={handleLogout}>تسجيل الخروج</button>
+    }
+    return (
+      <>
+        {user == null ? loggs.login : loggs.logout}
+      </>
+    )
+  }
+
+  const [userType, setUserType] = useState(localStorage.getItem('userType'));
+
+  return <header className="header flex items-center" ref={headerRef}>
+    <div className="container">
+      <div className="flex items-center justify-between">
+        {/* الشعار */}
+        <div>
+          <a href="/">
+            <img src={logo} alt="" />
+          </a>
+        </div>
+
+        {/* القائمة */}
+        <div className="navigation" ref={menuRef} onClick={toggleMenu}>
+          <ul className="menu flex items-center gap-[2.7rem]">
+            {userType === 'Doctor' ?
+              DoctorNavLinks.map((link, index) => (
+                <li key={index}>
+                  <NavLink to={link.path} className={navClass => navClass.isActive ? 'text-primaryColor text-[16px] leading-7 font-[600]' : 'text-textColor text-[16px] leading-7 font-[500] hover:text-primaryColor'}>{link.display}</NavLink>
+                </li>
+              )) : (userType === 'Relative' ?
+                relativeLinks.map((link, index) => (
+                  <li key={index}>
+                    <NavLink to={link.path} className={navClass => navClass.isActive ? 'text-primaryColor text-[16px] leading-7 font-[600]' : 'text-textColor text-[16px] leading-7 font-[500] hover:text-primaryColor'}>{link.display}</NavLink>
+                  </li>
+                )) : (
+                  navLinks.map((link, index) => (
+                    <li key={index}>
+                      <NavLink to={link.path} className={navClass => navClass.isActive ? 'text-primaryColor text-[16px] leading-7 font-[600]' : 'text-textColor text-[16px] leading-7 font-[500] hover:text-primaryColor'}>{link.display}</NavLink>
+                    </li>
+                  ))
+                )
+              )
+            }
+
+          </ul>
+        </div>
+
+        {/* الجانب الأيمن */}
+        <div className="flex items-center gap-4">
+          <div className='hidden'>
+            <Link to='/'>
+              <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
+                <img src={userImg} className="w-full rounded-full" alt="" />
+              </figure>
+            </Link>
+          </div>
+          {loginBtn()}
+
+
+          <span className='md:hidden' onClick={toggleMenu}>
+            <BiMenu className='w-6 h-6 cursor-pointer' />
+          </span>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+}
+
+export default Header
