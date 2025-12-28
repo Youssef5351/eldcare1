@@ -13,7 +13,7 @@ const ElderProfile = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-          const res = await axios.get(`http://localhost:5000/getPatient/${id}`);
+          const res = await axios.get(`https://young-innovator-backend.vercel.app/getPatient/${id}`);
           console.log(res.data.patient)
           setPatientDetail(res.data.patient)
       }
