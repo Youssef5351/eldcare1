@@ -9,7 +9,7 @@ const EldersList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-          const res = await axios.get('http://localhost:5000/getElders');
+          const res = await axios.get('https://young-innovator-backend.vercel.app/getElders');
           console.log(res);
           if (res.data.relatives == null) {
               setPatients([]);
